@@ -1,0 +1,139 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                    String         @id @default(uuid())
+  name                  String         @unique
+  email                 String
+  profileImg            String?        @map("profile_img")
+  introduction          String?
+  backgroundImg         String?        @map("background_img")
+  provider              String
+  createdAt             DateTime       @default(now()) @map("created_at")
+  deletedAt             DateTime?      @map("deleted_at")
+  blogPost              BlogPost[]
+  bookMark              BookMark[]
+  categories            Category[]
+  comments              Comment[]
+  receivedNotifications Notification[] @relation("ReceivedNotifications")
+  sentNotifications     Notification[] @relation("SentNotifications")
+  likes                 PostLike[]
+  requestSubscribe      Subscribe[]    @relation("RequestSubscribe")
+  responseSubscribe     Subscribe[]    @relation("ResponseSubscribe")
+
+  @@map("user")
+}
+
+model BlogPost {
+  id           Int            @id @default(autoincrement())
+  userId       String         @map("user_id")
+  categoryId   Int?           @map("category_id")
+  title        String
+  content      String
+  tags         String[]
+  createdAt    DateTime       @default(now()) @map("created_at")
+  updatedAt    DateTime?      @updatedAt @map("updated_at")
+  isPublic     Int            @default(1) @map("is_public")
+  thumbnailUrl String?        @map("thumbnail_url")
+  useAi        Int            @default(0) @map("use_ai")
+  aiSummary    Json?          @map("ai_summary")
+  category     Category?      @relation(fields: [categoryId], references: [id])
+  user         User           @relation(fields: [userId], references: [id])
+  bookMark     BookMark[]
+  comments     Comment[]
+  notification Notification[]
+  likes        PostLike[]
+
+  @@map("blog_post")
+}
+
+model Notification {
+  id          Int      @id @default(autoincrement())
+  postsId     Int      @map("posts_id")
+  senderId    String   @map("sender_id")
+  receiverId  String   @map("receiver_id")
+  type        Int
+  createdAt   DateTime @default(now()) @map("created_at")
+  checkStatus Int      @default(0) @map("check_status")
+  blogPost    BlogPost @relation(fields: [postsId], references: [id])
+  receiver    User     @relation("ReceivedNotifications", fields: [receiverId], references: [id])
+  sender      User     @relation("SentNotifications", fields: [senderId], references: [id])
+
+  @@map("notification")
+}
+
+model BookMark {
+  id        Int      @id @default(autoincrement())
+  postsId   Int      @map("posts_id")
+  userId    String   @map("user_id")
+  createdAt DateTime @default(now()) @map("created_at")
+  blogPost  BlogPost @relation(fields: [postsId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@map("bookmark")
+}
+
+model PostLike {
+  id        Int      @id @default(autoincrement())
+  postsId   Int      @map("posts_id")
+  userId    String   @map("user_id")
+  createdAt DateTime @default(now()) @map("created_at")
+  blogPost  BlogPost @relation(fields: [postsId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@map("post_like")
+}
+
+model Comment {
+  id        Int       @id @default(autoincrement())
+  postsId   Int       @map("posts_id")
+  userId    String    @map("user_id")
+  content   String
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @map("updated_at")
+  blogPost  BlogPost  @relation(fields: [postsId], references: [id])
+  user      User      @relation(fields: [userId], references: [id])
+
+  @@map("comment")
+}
+
+model Subscribe {
+  id                Int      @id @default(autoincrement())
+  requestId         String   @map("request_id")
+  responseId        String   @map("response_id")
+  createdAt         DateTime @default(now()) @map("created_at")
+  requestSubscribe  User     @relation("RequestSubscribe", fields: [requestId], references: [id])
+  responseSubscribe User     @relation("ResponseSubscribe", fields: [responseId], references: [id])
+
+  @@map("subscribe")
+}
+
+model Category {
+  id        Int        @id @default(autoincrement())
+  name      String     @map("name")
+  createdAt DateTime   @default(now()) @map("created_at")
+  updatedAt DateTime?  @default(now()) @map("updated_at")
+  userId    String     @map("user_id")
+  blogPost  BlogPost[]
+  user      User       @relation(fields: [userId], references: [id])
+
+  @@map("category")
+}
+
+model PostTemp {
+  id        Int      @id @default(autoincrement())
+  userId    String   @map("user_id")
+  title     String
+  content   String
+  tags      String[]
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("post_temp")
+}

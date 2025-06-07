@@ -1,0 +1,168 @@
+@use '@styles/variables.scss' as *;
+
+.cardContainer {
+  background: $theme-shade-2;
+  border-radius: 8px;
+  box-shadow: 3px 3px 10px 1px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  width: 20rem;
+  height: 24.5rem;
+  padding: 0;
+  overflow: hidden; 
+  transition: transform 600ms;
+}
+
+.flexGrowArea {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto; 
+  min-height: 0; 
+  overflow: hidden;
+}
+
+.cardContainer:hover {
+  transform: translateY(-8px); 
+  box-shadow: 4px 4px 11px 2px  rgba(0, 0, 0, 0.1); 
+}
+
+.iconWrap {
+  position: relative;
+  background: $theme-shade-3;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  height: 10rem;
+  overflow: hidden;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.iconWrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 400ms;
+}
+
+.iconWrap img:hover {
+  transform: scale(1.2);
+}
+
+.content {
+  flex: 1 1 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: .8rem 1rem 0 1rem;
+  overflow: hidden;
+}
+
+.title {
+  font-size: $font-xl-size;
+  font-weight: $font-title-weight;
+  color: $theme-text-1;
+  white-space: nowrap;         
+  overflow: hidden;           
+  text-overflow: ellipsis;     
+  line-height: 2rem;
+  flex-shrink: 0; 
+}
+
+.descWithImg {
+  font-size: $font-base-size;
+  color: $theme-text-2;
+  display: -webkit-box;     
+  -webkit-line-clamp: 4;  
+  line-clamp: 4;         
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  min-height: 0;
+}
+
+.descNoImg {
+  font-size: $font-base-size;
+  color: $theme-text-2;
+  display: -webkit-box;     
+  -webkit-line-clamp: 12;   
+  line-clamp: 12; 
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  min-height: 0; 
+}
+
+.tagWrap {
+  padding: 0 10px 12px 10px;
+  flex-shrink: 0; 
+  overflow: hidden;
+}
+
+.profileBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  border-top: 1px solid $theme-gray-4;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  background: $theme-shade-2;
+  gap: 8px;
+  flex-shrink: 0;
+  min-height: 0;
+}
+
+.profileInfo {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  flex: 1 1 0; 
+  min-width: 0;
+  overflow: hidden; 
+}
+
+.mainIcon {
+  display: flex;
+  gap: 16px; 
+  flex-shrink: 0;
+  align-items: center;
+}
+
+.iconTextGroup {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  white-space: nowrap; 
+}
+
+.chatIcon {
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $theme-gray-5;
+  flex-shrink: 0; 
+}
+
+.iconCount {
+  color: $theme-text-2;
+  font-size: clamp(12px, 2vw, 14px);
+}
+
+@media (max-width: 768px) {
+  .cardContainer:hover {
+    transform: none;
+  }
+  .iconWrap img:hover {
+    transform: none;
+  }
+}

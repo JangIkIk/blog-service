@@ -1,0 +1,88 @@
+@use "@styles/variables.scss" as *;
+
+.wrapper {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 24px 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.bodyText {
+  font-size: $font-lg-size;
+  line-height: 1.8;
+
+  img {
+    width: 100%;              
+    max-width: 700px;        
+    height: auto;            
+    display: block;
+    margin: 1.5rem auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  }
+
+  p {
+    margin: 1rem 0;
+  }
+
+  a {
+    color : black;
+  }
+
+  ul, ol {
+    list-style: initial;
+    padding-left: 1.5rem;
+    margin: 1rem 0;
+  }
+
+  li {
+    margin-bottom: 0.5rem;
+  }
+
+
+  ul {
+    list-style-type: disc; // 기본 점
+  }
+
+  ol {
+    list-style-type: decimal; // 숫자 목록
+  }
+
+  pre {
+    background-color: $theme-shade-3;
+    color: $theme-text-1;
+    padding: 1rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    font-family: monospace;
+    font-size: 0.95em;
+  }
+
+   code {
+    background-color: $theme-shade-3;
+    color: $theme-red; 
+    padding: 0.2em 0.4em;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 0.95em;
+  }
+
+  pre code {
+    // pre 내부의 code에는 별도 스타일링 방해되지 않도록
+    background: none;
+    color: inherit;
+    padding: 0;
+  }
+
+}
+
+.tagList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 1.5rem;
+}
+
+
