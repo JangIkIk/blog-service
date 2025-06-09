@@ -79,7 +79,8 @@ const pretendard = localFont({
 //   },
 // };
 
-import '@app/global.css'
+import '@app/global.css';
+import Header from '@/src/1-app/layout/header/ui';
 
 export default async function RootLayout({
   children,
@@ -92,7 +93,9 @@ export default async function RootLayout({
     <html lang="ko" className={`${pretendard.className}`}>
       <body>
         <Providers session={session}>
-          <main>test</main>
+          <main>
+            <Header />
+          </main>
         </Providers>
       </body>
     </html>
