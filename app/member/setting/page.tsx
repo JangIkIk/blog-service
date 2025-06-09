@@ -1,6 +1,6 @@
-// layer
-import { SettingCont } from '@/views/setting';
+// // layer
+// import { SettingCont } from '@/views/setting';
 
-export default function () {
-  return <SettingCont />;
-}
+// export default function () {
+//   return <SettingCont />;
+// }

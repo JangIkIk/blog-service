@@ -21,7 +21,13 @@
     // "baseUrl": ".",
     "paths": {
       "@/*": ["./*"],
-      "@styles/*": ["./app/styles/*"]
+      "@styles/*": ["./app/styles/*"],
+      "@app/*": ["./src/1-app/*"],
+      "@pages/*": ["./src/2-pages/*"],
+      "@features/*": ["./src/3-features/*"],
+      "@widgets/*": ["./src/4-widgets/*"],
+      "@entities/*": ["./src/5-entities/*"],
+      "@shared/*": ["./src/6-shared/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "global.d.ts", "prisma/seed.js", "prisma/unseed.js"],

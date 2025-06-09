@@ -1,6 +1,11 @@
+// // layer
+// import { CardListCont } from '@/views/home/card-list';
+
+// export default function Page() {
+//   return <CardListCont />;
+// }
 // layer
-import { CardListCont } from '@/views/home/card-list';
 
 export default function Page() {
-  return <CardListCont />;
+  return <div>홈</div>;
 }
