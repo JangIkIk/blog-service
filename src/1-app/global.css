@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
   --color-brand-main: oklch(63.12% 0.275 282.96);
@@ -10,7 +11,7 @@
   --color-brand-black: oklch(19.12% 0.033 262.42);
 
   --color-light-text-1: oklch(22.57% 0.011 259.14);
-  --color-light-text-2: oklch(22.57% 0.011 259.14 / 0.5);;
+  --color-light-text-2: oklch(22.57% 0.011 259.14 / 0.5);
   --color-light-text-3: oklch(60.73% 0.077 256.58);
   --color-light-bg-1: oklch(100% 0 0);
   --color-light-bg-2: oklch(94.86% 0.009 250.56);
@@ -24,4 +25,61 @@
   --color-dark-bg-2: oklch(30.56% 0.056 257.34);
   --color-dark-bg-3: oklch(39.80% 0.063 257.66);
   --color-dark-bg-4: oklch(91.12% 0.008 250.98);
+}
+
+@layer base {
+  body {
+    @variant dark {
+      @apply bg-dark-bg-1 text-dark-text-1;
+    }
+  }
+}
+
+@utility theme-text-1 {
+  @apply text-light-text-1;
+  @variant dark {
+    @apply text-dark-text-1;
+  }
+}
+@utility theme-text-2 {
+  @apply text-light-text-2;
+  @variant dark {
+    @apply text-dark-text-2;
+  }
+}
+@utility theme-text-3 {
+  @apply text-light-text-3;
+  @variant dark {
+    @apply text-dark-text-3;
+  }
+}
+@utility theme-bg-1 {
+  @apply bg-light-bg-1;
+  @variant dark {
+    @apply bg-dark-bg-1;
+  }
+}
+@utility theme-bg-2 {
+  @apply bg-light-bg-2;
+  @variant dark {
+    @apply bg-dark-bg-2;
+  }
+}
+@utility theme-bg-3 {
+  @apply bg-light-bg-3;
+  @variant dark {
+    @apply bg-dark-bg-3;
+  }
+}
+@utility theme-bg-4 {
+  @apply bg-light-bg-4;
+  @variant dark {
+    @apply bg-dark-bg-4;
+  }
+}
+@utility theme-border-2 {
+  @apply border-light-bg-2;
+  @variant dark {
+    @apply border-dark-bg-2;
+  }
 }
