@@ -6,7 +6,7 @@ import { cn } from "@shared/lib/cn";
 
 export default function Header() {
   return (
-    <header className="w-full flex justify-between items-center gap-8 px-4 py-2 border-b border-light-bg-2">
+    <div className="w-full flex justify-between items-center gap-8 px-4 py-2 border-b border-light-bg-2">
       {/* 왼쪽 영역 */}
       <div className="shrink-0 flex items-center gap-4">
         {/* 로고 */}
@@ -57,6 +57,6 @@ export default function Header() {
         </div>
         <TextAlignJustifyIcon className={cn("cursor-pointer size-7 text-light-text-2 hover:text-brand-main", "md:hidden")}/>
       </div>
-    </header>
+    </div>
   );
 }
