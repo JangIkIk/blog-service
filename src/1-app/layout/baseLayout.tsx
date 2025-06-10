@@ -11,7 +11,7 @@ export default function BaseLayout(props: Props) {
       <header>
         <Header />
       </header>
-      <main className="p-4">{children}</main>
+      <main className="px-4 py-5 max-w-5xl m-auto">{children}</main>
     </div>
   );
 }
