@@ -24,8 +24,8 @@
       "@styles/*": ["./app/styles/*"],
       "@app/*": ["./src/1-app/*"],
       "@pages/*": ["./src/2-pages/*"],
-      "@features/*": ["./src/3-features/*"],
-      "@widgets/*": ["./src/4-widgets/*"],
+      "@widgets/*": ["./src/3-widgets/*"],
+      "@features/*": ["./src/4-features/*"],
       "@entities/*": ["./src/5-entities/*"],
       "@shared/*": ["./src/6-shared/*"]
     }
