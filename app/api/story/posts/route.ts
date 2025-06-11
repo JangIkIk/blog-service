@@ -7,7 +7,7 @@ import {
 import { PrPostByUserRepository } from '@/back/story/posts/infra/PrPostByUserRepository';
 import { GetPostByUserUsecase } from '@/back/story/posts/application/usecase/GetPostByUserUsecase';
 import { GetPostByUserResponseDto } from '@/back/story/posts/application/dto/GetPostByUserResponseDto';
-import { auth } from '@/app/(auth)/auth';
+import { auth } from '@/src/1-app/auth';
 
 const secret = process.env.AUTH_SECRET;
 

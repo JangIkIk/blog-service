@@ -1,4 +1,4 @@
-import { auth } from '@/app/(auth)/auth';
+import { auth } from '@/src/1-app/auth';
 import { PrCommentRepository } from '@/back/comments/infra/PrCommentRepository';
 import { NextRequest, NextResponse } from 'next/server';
 

@@ -1,7 +1,7 @@
 import localFont from "next/font/local";
 
-import Providers from "./(auth)/providers";
-import { auth } from "./(auth)/auth";
+import Providers from "../src/1-app/providers";
+import { auth } from "../src/1-app/auth";
 
 import BaseLayout from "@/src/1-app/layout/baseLayout";
 import "@app/global.css";

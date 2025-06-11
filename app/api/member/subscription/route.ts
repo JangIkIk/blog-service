@@ -1,4 +1,4 @@
-import { auth } from '@/app/(auth)/auth';
+import { auth } from '@/src/1-app/auth';
 import { CancelFollowRequestDto } from '@/back/subscribe/application/dto/CancelFollowRequestDto';
 import { CreateFollowRequestDto } from '@/back/subscribe/application/dto/CreateFollowRequestDto';
 import { CancelFollowUsecase } from '@/back/subscribe/application/usecases/CancelFollowUsecase';

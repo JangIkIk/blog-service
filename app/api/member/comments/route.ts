@@ -1,4 +1,4 @@
-import { auth } from '@/app/(auth)/auth';
+import { auth } from '@/src/1-app/auth';
 import { CreateCommentDto } from '@/back/comments/application/dto/CreateCommentDto';
 import { CreateCommentUsecase } from '@/back/comments/application/usecases/CreateCommentUsecase';
 import { PrCommentRepository } from '@/back/comments/infra/PrCommentRepository';
