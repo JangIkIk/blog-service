@@ -1,1 +1,1 @@
-<!-- pages 폴더 스텁(stub) -->
+pages 폴더 스텁(stub)
