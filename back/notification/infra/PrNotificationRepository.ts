@@ -1,4 +1,4 @@
-import prisma from '@/shared/lib/prisma';
+import prisma from '@/src/6-shared/lib/prisma';
 import { SendNotificationDto } from '../application/dto/SendNotificationDto';
 import { NotificationRepository } from '../domain/NotificationRepository';
 

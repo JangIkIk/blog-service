@@ -2,7 +2,7 @@ import { ToggleLikeRepository } from '../domain/ToggleLikeRepository';
 import { ToggleLikeDto } from '../application/dto/ToggleLikeDto';
 
 import { PostLike } from '@/app/generated/prisma';
-import prisma from '@/shared/lib/prisma';
+import prisma from '@/src/6-shared/lib/prisma';
 
 export class PrToggleLikeRepository implements ToggleLikeRepository {
   async findLike(dto: ToggleLikeDto): Promise<PostLike | null> {

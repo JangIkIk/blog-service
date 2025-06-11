@@ -1,5 +1,5 @@
 import { AlarmRepository } from '@/back/alarm/domain/AlarmRepository';
-import prisma from '@/shared/lib/prisma';
+import prisma from '@/src/6-shared/lib/prisma';
 import { type findAllReturn } from '@/back/alarm/domain/AlarmRepository'
 
 export class PrAlarmRepository implements AlarmRepository {

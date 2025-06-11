@@ -3,7 +3,7 @@ import { UpdateCommentDto } from '@/back/comments/application/dto/UpdateCommentD
 import { DeleteCommentUsecase } from '@/back/comments/application/usecases/DeleteCommentUsecase';
 import { UpdateCommentUsecase } from '@/back/comments/application/usecases/UpdateCommentUsecase';
 import { PrCommentRepository } from '@/back/comments/infra/PrCommentRepository';
-import prisma from '@/shared/lib/prisma';
+import prisma from '@/src/6-shared/lib/prisma';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function PATCH(

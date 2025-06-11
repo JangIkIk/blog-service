@@ -1,4 +1,4 @@
-import prisma from '@/shared/lib/prisma';
+import prisma from '@/src/6-shared/lib/prisma';
 
 import { ProfileRepository } from '../domain/ProfileRepository';
 import { User } from '@/app/generated/prisma';

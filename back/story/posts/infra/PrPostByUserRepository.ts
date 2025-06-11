@@ -7,7 +7,7 @@ import {
   OrCondition,
   PostByUserRepository,
 } from '../domain/PostByUserRepository';
-import prisma from '@/shared/lib/prisma';
+import prisma from '@/src/6-shared/lib/prisma';
 export class PrPostByUserRepository implements PostByUserRepository {
   async findByUserId(
     filters: GetPostByUserFilter,
