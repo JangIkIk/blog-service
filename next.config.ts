@@ -17,11 +17,6 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'blog30-test.s3.ap-northeast-2.amazonaws.com',
-        pathname: '/**',
-      },
-      {
-        protocol: 'https',
         hostname: 'picsum.photos',
       },
       {
