@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSettingUseCase } from '@/back/setting/infra/_factory';
-import { auth } from '@/app/(auth)/auth';
+import { auth } from '@/src/1-app/auth';
 
 export async function DELETE(request: NextRequest) {
   try {

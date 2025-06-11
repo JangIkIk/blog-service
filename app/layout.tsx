@@ -1,10 +1,9 @@
 import localFont from "next/font/local";
 
-import Providers from "./(auth)/providers";
-import { auth } from "./(auth)/auth";
-
-import BaseLayout from "@/src/1-app/layout/baseLayout";
 import "@app/global.css";
+import Providers from "@app/providers";
+import { auth } from "@app/auth";
+import BaseLayout from "@app/layout/baseLayout";
 
 const pretendard = localFont({
   src: "../public/fonts/pretendard-medium.woff2",

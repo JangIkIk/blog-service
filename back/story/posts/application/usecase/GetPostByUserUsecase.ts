@@ -4,7 +4,7 @@ import {
   PostByUserRepository,
 } from '../../domain/PostByUserRepository';
 import { GetPostByUserResponseDto } from '../dto/GetPostByUserResponseDto';
-import { stripMarkdown } from '@/shared/utils/stripmarkdown';
+import { stripMarkdown } from '@/src/6-shared/lib/stripmarkdown';
 import { GetPostByUserDto } from '../dto/GetPostByUserDto';
 
 export class GetPostByUserUsecase {

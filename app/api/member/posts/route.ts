@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { auth } from '@/app/(auth)/auth';
+import { auth } from '@/src/1-app/auth';
 
 import { CreatePostDto } from '@/back/posts/application/dto/CreatePostDto';
 import { CreatePostUsecase } from '@/back/posts/application/usecases/CreatePostUsecase';

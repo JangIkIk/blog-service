@@ -1,4 +1,4 @@
-import { auth } from '@/app/(auth)/auth';
+import { auth } from '@/src/1-app/auth';
 import { DeletePostUsecase } from '@/back/posts/application/usecases/DeletePostUsecase';
 import { UpdatePostUsecase } from '@/back/posts/application/usecases/UpdatePostUsecase';
 import { PrPostRepository } from '@/back/posts/infra/PrPostsRepository';

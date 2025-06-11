@@ -7,7 +7,7 @@ import { DeletePostDraftUsecase } from '@/back/posts/application/usecases/Delete
 import { GetPostDraftListtUsecase } from '@/back/posts/application/usecases/GetPostDraftListUsecase';
 import { UpdatePostDraftUsecase } from '@/back/posts/application/usecases/UpdatePostDraftUsecase';
 import { PrPostDraftRepository } from '@/back/posts/infra/PrPostsDraftRepository';
-import { auth } from '@/app/(auth)/auth';
+import { auth } from '@/src/1-app/auth';
 
 export async function GET(req: NextRequest) {
   try {

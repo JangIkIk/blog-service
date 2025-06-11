@@ -1,4 +1,4 @@
-import { auth } from '@/app/(auth)/auth';
+import { auth } from '@/src/1-app/auth';
 import { BookmarkUsecase } from '@/back/bookmark/application/usecase/BookmarkUsecase';
 import { PrBookmarkRepository } from '@/back/bookmark/infra/PrBookmarkRepository';
 

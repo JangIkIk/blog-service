@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { auth } from '@/app/(auth)/auth';
+import { auth } from '@/src/1-app/auth';
 import { PrPostListAllRepository } from '@/back/posts/infra/PrPostListAllRepository';
 import { GetPostListAllUsecase } from '@/back/posts/application/usecases/GetPostListAllUsecase';
 import {

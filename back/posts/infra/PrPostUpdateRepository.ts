@@ -1,4 +1,4 @@
-import prisma from '@/shared/lib/prisma';
+import prisma from '@/src/6-shared/lib/prisma';
 import { BlogPost } from '@/app/generated/prisma';
 import { UpdatePostDto } from '../application/dto/UpdatePostDto';
 import { PostsEditRepository } from '../domain/PostEditRepository';

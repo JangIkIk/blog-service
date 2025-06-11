@@ -1,5 +1,5 @@
 import { UserRepository } from '../domain/UserRepository';
-import prisma from '@/shared/lib/prisma';
+import prisma from '@/src/6-shared/lib/prisma';
 
 export class PrUserRepository implements UserRepository {
   async getUserIdByName(username: string): Promise<string | null> {

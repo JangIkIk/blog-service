@@ -1,4 +1,4 @@
-import prisma from '@/shared/lib/prisma';
+import prisma from '@/src/6-shared/lib/prisma';
 import { SettingRepository } from '../domain/SettingRepository';
 import {
   UpdateUserProfileDto,

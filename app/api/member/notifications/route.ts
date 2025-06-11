@@ -4,7 +4,7 @@ import { PrAlarmRepository } from '@/back/alarm/infra/PrAlarmRepository';
 import { GetAlarmListUsecase } from '@/back/alarm/application/usecases/GetAlarmListUsecase';
 import { PutAlarmCheckUsecase } from '@/back/alarm/application/usecases/PutAlarmCheckUsecase';
 import { DeleteAlarmUsecase } from '@/back/alarm/application/usecases/DeleteAlarmUseCase';
-import { auth } from '@/app/(auth)/auth';
+import { auth } from '@/src/1-app/auth';
 
 export async function GET(req: NextRequest) {
   const session = await auth();
