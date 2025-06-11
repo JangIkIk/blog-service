@@ -5,7 +5,7 @@ import {
   PostListAllRepository,
   GetPostListAllFilter,
 } from '../../domain/PostListAllRepository';
-import { stripMarkdown } from '@/shared/utils/stripmarkdown';
+import { stripMarkdown } from '@/src/6-shared/lib/stripmarkdown';
 
 export class GetPostListAllUsecase {
   constructor(private readonly postsRepository: PostListAllRepository) {}

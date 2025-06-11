@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import { GetAlarmListResponse } from '../dto/GetAlarmListDto';
 import { AlarmRepository } from '@/back/alarm/domain/AlarmRepository';
-import { stripMarkdown } from '@/shared/utils/stripmarkdown'
+import { stripMarkdown } from '@/src/6-shared/lib/stripmarkdown'
 
 export class GetAlarmListUsecase {
   constructor(private readonly alarmRepository: AlarmRepository) {}
