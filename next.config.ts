@@ -20,7 +20,14 @@ const nextConfig: NextConfig = {
         hostname: 'blog30-test.s3.ap-northeast-2.amazonaws.com',
         pathname: '/**',
       },
-      
+      {
+        protocol: 'https',
+        hostname: 'picsum.photos',
+      },
+      {
+        protocol: 'https',
+        hostname: 'dk7fwwnqbx.ufs.sh',
+      },
     ],
   },
   turbopack: {
