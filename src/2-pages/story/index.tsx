@@ -52,7 +52,7 @@ export default function Story() {
       <Editor initContent={initContent} markdownData={markdownData} coverRef={coverRef} titleRef={titleRef}/>
       <div className="flex flex-col gap-3 justify-end fixed right-0 bottom-0 p-4">
         {["발행하기", "임시저장", "취소하기", "공개/비공개"].map((text) => (
-            <button className="shrink-0 grow-1 cursor-pointer rounded-lg px-3 py-2 font-bold text-sm bg-brand-soft text-white" onClick={submitTest}>
+            <button key={text} className="shrink-0 grow-1 cursor-pointer rounded-lg px-3 py-2 font-bold text-sm bg-brand-soft text-white" onClick={submitTest}>
           {text}
         </button>    
         ))}
