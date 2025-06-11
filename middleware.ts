@@ -7,20 +7,20 @@ export async function middleware(request: NextRequest) {
   //   req: request,
   //   secret: process.env.AUTH_SECRET,
   // });
-  const session = await auth();
+  // const session = await auth();
   // console.log("session:",session);
-  const pathname = request.nextUrl.pathname;
-  if (pathname.startsWith('/api/member')) {
-    if (!session) {
-      return NextResponse.json({ status: 401, message: 'Unauthorized' });
-    }
-    return NextResponse.next();
-  }
-  if (!session) {
-    const url = new URL('/', request.url);
-    return NextResponse.redirect(url);
-  }
-  return NextResponse.next();
+  // const pathname = request.nextUrl.pathname;
+  // if (pathname.startsWith('/api/member')) {
+  //   if (!session) {
+  //     return NextResponse.json({ status: 401, message: 'Unauthorized' });
+  //   }
+  //   return NextResponse.next();
+  // }
+  // if (!session) {
+  //   const url = new URL('/', request.url);
+  //   return NextResponse.redirect(url);
+  // }
+  // return NextResponse.next();
 }
 
 export const config = { matcher: ['/member(.*)', '/api/member(.*)'] };

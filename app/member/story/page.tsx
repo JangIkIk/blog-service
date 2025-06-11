@@ -1,5 +1,6 @@
-// import PostFormConts from '@/views/post/post-form/container/PostFormCont';
+"use client";
+import Story from '@pages/story';
 
-// export default function Page() {
-//   return <PostFormConts />;
-// }
+export default function Page() {
+  return <Story/>
+}
