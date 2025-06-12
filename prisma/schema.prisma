@@ -1,6 +1,10 @@
+// npx prisma db pull: 현재 데이터베이스의 스키마를 분석하여 schema.prisma를 업데이트
+// npx prisma migrate dev: schema.prisma를 데이터베이스에 업데이트
+// npx prisma generate: prisma/client를 업데이트하여 Prisma Client API를 사용할 수 있음
+
 generator client {
   provider = "prisma-client-js"
-  output   = "../app/generated/prisma"
+  output   = "../src/generated/prisma"
 }
 
 datasource db {
@@ -9,131 +13,271 @@ datasource db {
 }
 
 model User {
-  id                    String         @id @default(uuid())
-  name                  String         @unique
-  email                 String
-  profileImg            String?        @map("profile_img")
-  introduction          String?
-  backgroundImg         String?        @map("background_img")
-  provider              String
-  createdAt             DateTime       @default(now()) @map("created_at")
-  deletedAt             DateTime?      @map("deleted_at")
-  blogPost              BlogPost[]
-  bookMark              BookMark[]
-  categories            Category[]
-  comments              Comment[]
-  receivedNotifications Notification[] @relation("ReceivedNotifications")
-  sentNotifications     Notification[] @relation("SentNotifications")
-  likes                 PostLike[]
-  requestSubscribe      Subscribe[]    @relation("RequestSubscribe")
-  responseSubscribe     Subscribe[]    @relation("ResponseSubscribe")
+  id String @id @default(cuid()) // 기본 키: User의 고유 ID (cuid()로 자동 생성)
+  name String? // 사용자 이름 (선택 사항)
+  email String // 사용자 이메일
+  emailVerified DateTime? @map("email_verified") // 이메일 인증 시간 (DB 컬럼은 snake_case)
+  image String? // 사용자 프로필 이미지 URL (선택 사항)
+  imageCover String? @map("image_cover") // 사용자 커버 이미지 URL (DB 컬럼은 snake_case)
+  createdAt DateTime @map("created_at") @default(now()) // 생성 시간 (DB 컬럼은 snake_case)
+  deletedAt DateTime? @map("deleted_at") // 삭제 시간 (DB 컬럼은 snake_case)
 
-  @@map("user")
+  // 관계 정의
+  accounts      Account[] // User는 여러 계정(Account)을 가질 수 있음
+  sessions      Session[] // User는 여러 세션(Session)을 가질 수 있음
+  posts Post[] // User는 여러 게시글(Post)을 작성할 수 있음
+  postCategories PostCategorie[] // User는 여러 게시글 카테고리(PostCategorie)를 가질 수 있음
+  postComments PostComment[] // User는 여러 댓글(PostComment)을 작성할 수 있음
+  subscribing   UserSubscribe[] @relation("UserIsSubscriber") // User는 여러 구독(UserSubscribe)을 생성할 수 있음 (다른 유저를 구독)
+  subscribers   UserSubscribe[] @relation("UserIsSubscribedTo") // User는 여러 구독(UserSubscribe)을 받을 수 있음 (다른 유저에게 구독당함)
+  postTemps PostTemp[] // User는 여러 임시글(PostTemp)을 작성할 수 있음
+  postBookmarks PostBookmark[] // User는 여러 북마크(PostBookmark)를 가질 수 있음
+  postLikes PostLike[] // User는 여러 좋아요(PostLike)를 할 수 있음
+
+  // 제약 조건
+  @@unique([email]) // 'email' 필드는 고유해야 함
+
+  // 테이블 맵핑
+  @@map("users") // 'User' 모델을 'users' 테이블에 매핑
 }
 
-model BlogPost {
-  id           Int            @id @default(autoincrement())
-  userId       String         @map("user_id")
-  categoryId   Int?           @map("category_id")
-  title        String
-  content      String
-  tags         String[]
-  createdAt    DateTime       @default(now()) @map("created_at")
-  updatedAt    DateTime?      @updatedAt @map("updated_at")
-  isPublic     Int            @default(1) @map("is_public")
-  thumbnailUrl String?        @map("thumbnail_url")
-  useAi        Int            @default(0) @map("use_ai")
-  aiSummary    Json?          @map("ai_summary")
-  category     Category?      @relation(fields: [categoryId], references: [id])
-  user         User           @relation(fields: [userId], references: [id])
-  bookMark     BookMark[]
-  comments     Comment[]
-  notification Notification[]
-  likes        PostLike[]
+model Account {
+  id                 String  @id @default(cuid()) // 기본 키: Account의 고유 ID (cuid()로 자동 생성)
+  type               String // 인증 제공자 유형 (예: "oauth", "email", "credentials")
+  provider           String // OAuth/OIDC 제공자 이름 (예: "google", "github")
+  providerAccountId  String  @map("provider_account_id") // 제공자별 사용자 계정 ID (DB 컬럼은 snake_case)
+  refresh_token      String? @db.Text // OAuth 갱신 토큰 (NextAuth.js 스키마, 긴 텍스트 저장 가능)
+  access_token       String? @db.Text // OAuth 접근 토큰 (NextAuth.js 스키마, 긴 텍스트 저장 가능)
+  expires_at         Int? // 토큰 만료 시간 (Unix Epoch seconds)
+  token_type         String? // 토큰 유형 (예: "Bearer")
+  scope              String? // OAuth 스코프 (접근 권한 범위)
+  id_token           String? @db.Text // OIDC ID 토큰 (JWT, 긴 텍스트 저장 가능)
+  session_state      String? // OAuth 세션 상태
 
-  @@map("blog_post")
+  // 외래 키 (FK: Foreign Key) 컬럼
+  userId             String  @map("user_id") // User 모델의 id를 참조하는 외래 키 (DB 컬럼은 snake_case)
+
+  // 관계 정의
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade) // 이 Account가 연결된 User 모델 객체 (userId를 참조)
+                                                                            // onDelete: Cascade - User 삭제 시 연결된 Account도 함께 삭제
+
+  // 제약 조건
+  @@unique([provider, providerAccountId]) // 'provider'와 'providerAccountId' 조합은 고유해야 함
+
+  // 테이블 맵핑
+  @@map("accounts") // 'Account' 모델을 'accounts' 테이블에 매핑
 }
 
-model Notification {
-  id          Int      @id @default(autoincrement())
-  postsId     Int      @map("posts_id")
-  senderId    String   @map("sender_id")
-  receiverId  String   @map("receiver_id")
-  type        Int
-  createdAt   DateTime @default(now()) @map("created_at")
-  checkStatus Int      @default(0) @map("check_status")
-  blogPost    BlogPost @relation(fields: [postsId], references: [id])
-  receiver    User     @relation("ReceivedNotifications", fields: [receiverId], references: [id])
-  sender      User     @relation("SentNotifications", fields: [senderId], references: [id])
+model Session {
+  id           String   @id @default(cuid()) // 기본 키: Session의 고유 ID (cuid()로 자동 생성)
+  sessionToken String   @map("session_token") // 세션 토큰 (DB 컬럼은 snake_case)
+  expires      DateTime // 세션 만료 시간
 
-  @@map("notification")
+  // 외래 키 (FK: Foreign Key) 컬럼
+  userId       String   @map("user_id") // User 모델의 id를 참조하는 외래 키 (DB 컬럼은 snake_case)
+
+  // 관계 정의
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade) // 이 Session이 연결된 User 모델 객체 (userId를 참조)
+                                                                                        // onDelete: Cascade - User 삭제 시 연결된 Session도 함께 삭제
+
+  // 제약 조건
+  @@unique([sessionToken]) // 'sessionToken' 필드는 고유해야 함
+
+  // 테이블 맵핑
+  @@map("sessions") // 'Session' 모델을 'sessions' 테이블에 매핑
 }
 
-model BookMark {
-  id        Int      @id @default(autoincrement())
-  postsId   Int      @map("posts_id")
-  userId    String   @map("user_id")
-  createdAt DateTime @default(now()) @map("created_at")
-  blogPost  BlogPost @relation(fields: [postsId], references: [id])
-  user      User     @relation(fields: [userId], references: [id])
+model VerificationToken {
+  identifier String // 토큰 식별자
+  token      String // 검증 토큰
+  expires    DateTime // 토큰 만료 시간
 
-  @@map("bookmark")
+  // 제약 조건
+  @@unique([identifier, token]) // 'identifier'와 'token' 조합은 고유해야 함
+
+  // 테이블 맵핑
+  @@map("verification_tokens") // 'VerificationToken' 모델을 'verification_tokens' 테이블에 매핑
 }
 
-model PostLike {
-  id        Int      @id @default(autoincrement())
-  postsId   Int      @map("posts_id")
-  userId    String   @map("user_id")
-  createdAt DateTime @default(now()) @map("created_at")
-  blogPost  BlogPost @relation(fields: [postsId], references: [id])
-  user      User     @relation(fields: [userId], references: [id])
+model UserSubscribe {
+  id             Int       @id @default(autoincrement()) // 기본 키: 구독 레코드의 고유 ID (자동 증가)
+  createdAt      DateTime  @map("created_at") @default(now()) // 구독 생성 시간 (DB 컬럼은 snake_case)
 
-  @@map("post_like")
+  // 외래 키 (FK: Foreign Key) 컬럼
+  subscriberId   String @map("subscriber_id") // 구독하는 User 모델의 id를 참조하는 외래 키 (DB 컬럼은 snake_case)
+  subscribedToId String @map("subscribed_to_id") // 구독받는 User 모델의 id를 참조하는 외래 키 (DB 컬럼은 snake_case)
+
+  // 관계 정의
+  subscriber     User      @relation("UserIsSubscriber", fields: [subscriberId], references: [id]) // 이 구독 레코드의 '구독자'인 User 모델 객체
+  subscribedTo   User      @relation("UserIsSubscribedTo", fields: [subscribedToId], references: [id]) // 이 구독 레코드에서 '구독받는' User 모델 객체
+
+  // 제약 조건
+  @@unique([subscriberId, subscribedToId]) // 'subscriberId'와 'subscribedToId' 조합은 고유해야 함 (중복 구독 방지)
+
+  // 테이블 맵핑
+  @@map("user_subscribes") // 'UserSubscribe' 모델을 'user_subscribes' 테이블에 매핑
 }
 
-model Comment {
-  id        Int       @id @default(autoincrement())
-  postsId   Int       @map("posts_id")
-  userId    String    @map("user_id")
-  content   String
-  createdAt DateTime  @default(now()) @map("created_at")
-  updatedAt DateTime? @map("updated_at")
-  blogPost  BlogPost  @relation(fields: [postsId], references: [id])
-  user      User      @relation(fields: [userId], references: [id])
+model Post {
+  id Int @id @default(autoincrement()) // 기본 키: 게시글의 고유 ID (자동 증가)
+  title String // 게시글 제목
+  content String // 게시글 내용
+  aiContent String? @map("ai_content") // AI 생성 내용 (DB 컬럼은 snake_case, 선택 사항)
+  thumbnailImage String? @map("thumbnail_image") // 썸네일 이미지 URL (DB 컬럼은 snake_case, 선택 사항)
+  createdAt DateTime @map("created_at") @default(now()) // 생성 시간 (DB 컬럼은 snake_case)
+  updatedAt DateTime? @map("updated_at") // 마지막 업데이트 시간 (DB 컬럼은 snake_case, 선택 사항)
+  deletedAt DateTime? @map("deleted_at") // 삭제 시간 (DB 컬럼은 snake_case, 선택 사항)
+  scope Scope // 게시글 공개 범위 (Scope Enum 사용, 기본값 설정은 Post 모델 생성 시 지정)
 
-  @@map("comment")
+  // 외래 키 (FK: Foreign Key) 컬럼
+  userId String @map("user_id") // User 모델의 id를 참조하는 외래 키 (DB 컬럼은 snake_case)
+  
+  // 관계 정의
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade) // 이 게시글이 속한 User 모델 객체 (userId를 참조)
+                                                                            // onDelete: Cascade - User 삭제 시 연결된 Post도 함께 삭제
+  postTags PostTag[] @relation("PostHasTags") // 이 게시글에 연결된 모든 PostTag 레코드들 (Post는 여러 개의 태그를 가질 수 있음)
+  postComments PostComment[] // 이 게시글에 연결된 모든 PostComment 레코드들 (Post는 여러 개의 댓글을 가질 수 있음)
+  postBookmarks  PostBookmark[] // 이 게시글에 연결된 모든 PostBookmark 레코드들 (Post는 여러 개의 북마크를 가질 수 있음)
+  postLikes PostLike[] // 이 게시글에 연결된 모든 PostLike 레코드들 (Post는 여러 개의 좋아요를 가질 수 있음)
+
+  // 테이블 맵핑
+  @@map("posts") // 'Post' 모델을 'posts' 테이블에 매핑
 }
 
-model Subscribe {
-  id                Int      @id @default(autoincrement())
-  requestId         String   @map("request_id")
-  responseId        String   @map("response_id")
-  createdAt         DateTime @default(now()) @map("created_at")
-  requestSubscribe  User     @relation("RequestSubscribe", fields: [requestId], references: [id])
-  responseSubscribe User     @relation("ResponseSubscribe", fields: [responseId], references: [id])
+model Tag {
+  id Int @id @default(autoincrement()) // 기본 키: 태그의 고유 ID (자동 증가)
+  name String // 태그 이름 (unique 제약 조건으로 고유성 보장, 실제 구현 시 정규화 고려)
 
-  @@map("subscribe")
+  // 관계 정의
+  postTags PostTag[] @relation("TagHasPosts") // 이 태그에 연결된 모든 PostTag 레코드들 (Tag는 여러 게시물에 사용될 수 있음)
+
+  // 제약 조건
+  @@unique([name]) // 'name' 필드는 고유해야 함 (중복 태그 방지)
+
+  // 테이블 맵핑
+  @@map("tags") // 'Tag' 모델을 'tags' 테이블에 매핑
 }
 
-model Category {
-  id        Int        @id @default(autoincrement())
-  name      String     @map("name")
-  createdAt DateTime   @default(now()) @map("created_at")
-  updatedAt DateTime?  @default(now()) @map("updated_at")
-  userId    String     @map("user_id")
-  blogPost  BlogPost[]
-  user      User       @relation(fields: [userId], references: [id])
+model PostTag {
+  // 외래 키 (FK: Foreign Key) 컬럼
+  tagId Int @map("tag_id") // Tag 모델의 id를 참조하는 외래 키 (DB 컬럼은 snake_case)
+  postId Int @map("post_id") // Post 모델의 id를 참조하는 외래 키 (DB 컬럼은 snake_case)
+  createdAt DateTime @map("created_at") @default(now()) // 생성 시간 (DB 컬럼은 snake_case)
 
-  @@map("category")
+  // 관계 정의
+  tag Tag @relation("TagHasPosts",fields: [tagId], references: [id]) // 이 PostTag 레코드가 연결된 단일 Tag 모델 객체 (tagId를 참조)
+  post Post @relation("PostHasTags", fields: [postId], references: [id]) // 이 PostTag 레코드가 연결된 단일 Post 모델 객체 (postId를 참조)
+
+  // 제약 조건
+  @@id([postId, tagId]) // 'postId'와 'tagId'의 조합이 이 테이블의 복합 기본 키 (중복 연결 방지)
+
+  // 테이블 맵핑
+  @@map("post_tags") // 'PostTag' 모델을 'post_tags' 테이블에 매핑
+}
+
+model PostCategorie {
+  id Int @id @default(autoincrement()) // 기본 키: 카테고리의 고유 ID (자동 증가)
+  name String // 카테고리 이름
+  createdAt DateTime @map("created_at") @default(now()) // 생성 시간 (DB 컬럼은 snake_case)
+  updatedAt DateTime? @map("updated_at") // 마지막 업데이트 시간 (DB 컬럼은 snake_case, 선택 사항)
+  sortOrder Int @default(0) // 카테고리 정렬 순서 (자동 증가)
+  
+  // 외래 키 (FK: Foreign Key) 컬럼
+  userId String @map("user_id") // User 모델의 id를 참조하는 외래 키 (DB 컬럼은 snake_case)
+
+  // 관계 정의
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade) // 이 카테고리가 속한 User 모델 객체 (userId를 참조)
+                                                                            // onDelete: Cascade - User 삭제 시 연결된 PostCategorie도 함께 삭제
+
+  // 제약 조건
+  @@unique([userId, name]) // userId와 name 조합으로 unique를 걸어 '한 유저당 같은 카테고리 이름 중복 방지'
+
+  // 테이블 맵핑
+  @@map("post_categories") // 'PostCategorie' 모델을 'post_categories' 테이블에 매핑
+}
+
+model PostComment {
+  id Int @id @default(autoincrement()) // 기본 키: 댓글의 고유 ID (자동 증가)
+  content String // 댓글 내용
+  createdAt DateTime @map("created_at") @default(now()) // 생성 시간 (DB 컬럼은 snake_case)
+  updatedAt DateTime? @map("updated_at") // 마지막 업데이트 시간 (DB 컬럼은 snake_case, 선택 사항)
+
+  // 외래 키 (FK: Foreign Key) 컬럼
+  userId String @map("user_id") // User 모델의 id를 참조하는 외래 키 (DB 컬컬은 snake_case)
+  postId Int @map("post_id") // Post 모델의 id를 참조하는 외래 키 (DB 컬럼은 snake_case)
+
+  // 관계 정의
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade) // 이 댓글을 작성한 User 모델 객체 (userId를 참조)
+                                                                            // onDelete: Cascade - User 삭제 시 연결된 PostComment도 함께 삭제
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade) // 이 댓글이 달린 Post 모델 객체 (postId를 참조)
+                                                                            // onDelete: Cascade - Post 삭제 시 연결된 PostComment도 함께 삭제
+
+  // 테이블 맵핑
+  @@map("post_comments") // 'PostComment' 모델을 'post_comments' 테이블에 매핑 //
 }
 
 model PostTemp {
-  id        Int      @id @default(autoincrement())
-  userId    String   @map("user_id")
-  title     String
-  content   String
-  tags      String[]
-  createdAt DateTime @default(now()) @map("created_at")
+  id Int @id @default(autoincrement()) // 기본 키: 임시글의 고유 ID (자동 증가)
+  title String // 임시글 제목
+  content String // 임시글 내용
+  createdAt DateTime @default(now()) @map("created_at") // 생성 시간 (DB 컬럼은 snake_case)
+  scope Scope // 임시글 공개 범위 (Scope Enum 사용)
 
-  @@map("post_temp")
+  // 외래 키 (FK: Foreign Key) 컬럼
+  userId String @map("user_id") // User 모델의 id를 참조하는 외래 키 (DB 컬럼은 snake_case)
+
+  // 관계 정의
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade) // 이 임시글을 작성한 User 모델 객체 (userId를 참조)
+                                                                            // onDelete: Cascade - User 삭제 시 연결된 PostTemp도 함께 삭제
+
+  // 테이블 맵핑
+  @@map("post_temps") // 'PostTemp' 모델을 'post_temps' 테이블에 매핑
+}
+
+model PostBookmark {
+  id Int @id @default(autoincrement()) // 기본 키: 북마크 레코드의 고유 ID (자동 증가)
+  createdAt DateTime @map("created_at") @default(now()) // 생성 시간 (DB 컬럼은 snake_case)
+
+  // 외래 키 (FK: Foreign Key) 컬럼
+  userId String @map("user_id") // User 모델의 id를 참조하는 외래 키 (DB 컬럼은 snake_case)
+  postId Int @map("post_id") // Post 모델의 id를 참조하는 외래 키 (DB 컬럼은 snake_case)
+
+  // 관계 정의
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade) // 이 북마크를 생성한 User 모델 객체 (userId를 참조)
+                                                                            // onDelete: Cascade - User 삭제 시 연결된 PostBookmark도 함께 삭제
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade) // 이 북마크가 연결된 Post 모델 객체 (postId를 참조)
+                                                                            // onDelete: Cascade - Post 삭제 시 연결된 PostBookmark도 함께 삭제
+
+  // 제약 조건
+  @@unique([userId, postId]) // 'userId'와 'postId' 조합은 고유해야 함 (중복 북마크 방지)
+
+  // 테이블 맵핑
+  @@map("post_bookmarks") // 'PostBookmark' 모델을 'post_bookmarks' 테이블에 매핑
+}
+
+model PostLike {
+  id Int @id @default(autoincrement()) // 기본 키: 좋아요 레코드의 고유 ID (자동 증가)
+  createdAt DateTime @map("created_at") @default(now()) // 생성 시간 (DB 컬럼은 snake_case)
+
+  // 외래 키 (FK: Foreign Key) 컬럼
+  userId String @map("user_id") // User 모델의 id를 참조하는 외래 키 (DB 컬럼은 snake_case)
+  postId Int @map("post_id") // Post 모델의 id를 참조하는 외래 키 (DB 컬럼은 snake_case)
+
+  // 관계 정의
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade) // 이 좋아요를 생성한 User 모델 객체 (userId를 참조)
+                                                                            // onDelete: Cascade - User 삭제 시 연결된 PostLike도 함께 삭제
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade) // 이 좋아요가 연결된 Post 모델 객체 (postId를 참조)
+                                                                            // onDelete: Cascade - Post 삭제 시 연결된 PostLike도 함께 삭제
+
+  // 제약 조건
+  @@unique([userId, postId]) // 'userId'와 'postId' 조합은 고유해야 함 (중복 좋아요 방지)
+
+  // 테이블 맵핑
+  @@map("post_likes") // 'PostLike' 모델을 'post_likes' 테이블에 매핑 //
+}
+
+enum Scope {
+  PUBLIC    // 공개 (모두에게 공개)
+  PRIVATE   // 비공개 (본인에게만 공개)
+  FRIENDS   // 구독자공개 (구독자에게만 공개)
 }
