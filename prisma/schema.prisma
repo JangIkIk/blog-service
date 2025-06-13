@@ -1,7 +1,6 @@
 // npx prisma db pull: 현재 데이터베이스의 스키마를 분석하여 schema.prisma를 업데이트
 // npx prisma migrate dev: schema.prisma를 데이터베이스에 업데이트
 // npx prisma generate: prisma/client를 업데이트하여 Prisma Client API를 사용할 수 있음
-
 generator client {
   provider = "prisma-client-js"
   output   = "../src/generated/prisma"
