@@ -27,12 +27,15 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       // 자체회원 가입 관련
       console.log("credentials:",credentials);
       // 실패시 리다이렉트
-      return "/";
+      // return "/";
       // 성공시 redirect로 진행
       return true;
     },
     // 로그인이 성공적으로 완료된 후 사용자를 어디로 리다이렉트할지 결절할때 사용됨
     async redirect({url, baseUrl}) {
+      console.log("redirect________________________________________________")
+      console.log("url:",url);
+      console.log("baseUrl:",baseUrl);
 
       return baseUrl
     },
