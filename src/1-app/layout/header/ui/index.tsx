@@ -1,4 +1,5 @@
 "use client"
+import { signIn } from "next-auth/react";
 import {
   MagnifyingGlassIcon,
   TextAlignJustifyIcon,
@@ -53,7 +54,7 @@ export default function Header() {
         </button>
         <TextAlignJustifyIcon className={cn("cursor-pointer size-7 hover:text-brand-main", "md:hidden")}/>
         <div className={cn("hidden", "md:block")}>
-          <button className="shrink-0 cursor-pointer rounded-lg px-3 py-2 font-bold text-sm bg-brand-soft text-white">
+          <button className="shrink-0 cursor-pointer rounded-lg px-3 py-2 font-bold text-sm bg-brand-soft text-white" onClick={() => signIn("google")}>
             로그인
           </button>
         </div>

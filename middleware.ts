@@ -23,4 +23,4 @@ export async function middleware(request: NextRequest) {
   // return NextResponse.next();
 }
 
-export const config = { matcher: ['/member(.*)', '/api/member(.*)'] };
+// export const config = { matcher: ['/member(.*)', '/api/member(.*)'] };
