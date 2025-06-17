@@ -3,7 +3,7 @@ import type { StoryForm } from "@entities/types";
 import { Button } from "@shared/ui/Button";
 import { SymbolIcon } from "@radix-ui/react-icons";
 
-export default function StoryCreateButton(props: StoryForm) {
+function StoryCreateButton(props: StoryForm) {
   const { title, content, aiContent, thumbnailImage, scope = "PUBLIC" } = props;
   const { status, isLoading, startFetch } = useCreateStoryApi();
 
@@ -34,3 +34,5 @@ export default function StoryCreateButton(props: StoryForm) {
     </>
   );
 }
+
+export default StoryCreateButton;

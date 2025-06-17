@@ -9,7 +9,11 @@ const pretendard = localFont({
   src: "../public/fonts/pretendard-medium.woff2",
 });
 
-export default async function RootLayout(props: Props) {
+type Props = Readonly<{
+  children: React.ReactNode;
+}>;
+
+async function RootLayout(props: Props) {
   const { children } = props;
   const session = await auth();
 
@@ -24,6 +28,4 @@ export default async function RootLayout(props: Props) {
   );
 }
 
-type Props = Readonly<{
-  children: React.ReactNode;
-}>;
+export default RootLayout;

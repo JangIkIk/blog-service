@@ -23,7 +23,7 @@ type EditorProps = {
   markdownData?: ( markdownData: string ) => void;
 };
 
-export default function Editor(props: EditorProps) {
+function Editor(props: EditorProps) {
   const { initContent, markdownData, editable, url = "https://picsum.photos/1200/800", theme = "light" } = props;
   const { editor, markdown, changeMarkdown } = useEditorConfig({initContent});
   const [cover, setCover] = useState<string>(url);
@@ -95,3 +95,5 @@ export default function Editor(props: EditorProps) {
     </div>
   );
 }
+
+export default Editor;

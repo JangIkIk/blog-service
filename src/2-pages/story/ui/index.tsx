@@ -3,7 +3,7 @@ import dynamic from "next/dynamic";
 import { useMemo } from "react";
 import { type PartialBlock } from "@blocknote/core";
 
-export default function Story() {
+function Story() {
   const Editor = useMemo(
     () => dynamic(() => import("@/src/3-widgets/editor/index"), { ssr: false }),
     []
@@ -15,6 +15,8 @@ export default function Story() {
     </div>
   );
 }
+
+export default Story
 
 
 // const initContent: PartialBlock[] = [

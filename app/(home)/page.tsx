@@ -1,6 +1,8 @@
 "use client";
 import Home from '@pages/home';
 
-export default function Page() {
+function Page() {
   return <Home/>
 }
+
+export default Page;

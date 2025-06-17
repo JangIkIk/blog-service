@@ -9,7 +9,7 @@ type EditorConfigProps = {
   initContent?: PartialBlock[];
 };
 
-export const useEditorConfig = (props?: EditorConfigProps) => {
+const useEditorConfig = (props?: EditorConfigProps) => {
   const { initContent } = props || {};
   const [markdown, setMarkdown] = useState<string>("");
 
@@ -30,9 +30,11 @@ export const useEditorConfig = (props?: EditorConfigProps) => {
     setMarkdown(markdown);
   };
 
-  useEffect(()=>{
-    if(initContent) changeMarkdown();
-  },[])
+  useEffect(() => {
+    if (initContent) changeMarkdown();
+  }, []);
 
   return { editor, markdown, changeMarkdown };
 };
+
+export { useEditorConfig };

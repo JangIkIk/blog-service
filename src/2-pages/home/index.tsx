@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { cn } from "@shared/lib/cn";
 
-export default function Home() {
+function Home() {
   // 임시
   const [selectSort, setSelectSort] = useState<string>("전체보기");
   const onClickSort = (text: string) => setSelectSort(text);
@@ -83,3 +83,5 @@ export default function Home() {
     </div>
   );
 }
+
+export default Home;

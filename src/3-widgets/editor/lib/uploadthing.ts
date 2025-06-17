@@ -8,8 +8,10 @@ import {
 
 import type { OurFileRouter } from "@/app/api/uploadthing/core";
 // https://docs.uploadthing.com/concepts/theming
-export const { uploadFiles } = generateReactHelpers<OurFileRouter>();
-export const UploadButton = generateUploadButton<OurFileRouter>();
-export const UploadDropzone = generateUploadDropzone<OurFileRouter>();
+const { uploadFiles } = generateReactHelpers<OurFileRouter>();
+const UploadButton = generateUploadButton<OurFileRouter>();
+const UploadDropzone = generateUploadDropzone<OurFileRouter>();
+
+export { uploadFiles, UploadButton, UploadDropzone };
 
 
