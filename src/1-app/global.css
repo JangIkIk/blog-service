@@ -28,6 +28,24 @@
   --color-dark-bg-2: oklch(30.56% 0.056 257.34);
   --color-dark-bg-3: oklch(39.80% 0.063 257.66);
   --color-dark-bg-4: oklch(91.12% 0.008 250.98);
+
+
+  --text-clamp-xs: clamp(10px, 2vw, 12px);
+  --text-clamp-sm: clamp(12px, 2vw, 14px);
+  --text-clamp-md: clamp(14px, 2vw, 16px);
+  --text-clamp-base: clamp(16px, 2vw, 18px);
+  --text-clamp-lg: clamp(18px, 2vw, 20px);
+  --text-clamp-xl: clamp(20px, 2vw, 22px);
+  --text-clamp-2xl: clamp(22px, 2vw, 24px);
+  --text-clamp-3xl: clamp(24px, 2vw, 26px);
+  --text-clamp-4xl: clamp(26px, 2vw, 28px);
+  --text-clamp-5xl: clamp(28px, 2vw, 30px);
+  --text-clamp-6xl: clamp(30px, 2vw, 32px);
+
+}
+
+@utility clamp-* {
+  font-size: --value(--text-clamp-*);
 }
 
 @layer base {
