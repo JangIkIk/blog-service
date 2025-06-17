@@ -1,6 +1,29 @@
 import { useCallback, useEffect, useState } from "react";
 
-export const useFetch = <TResponse = any, TRequest = any>(
+type OptionsMethod = "GET" | "POST" | "DELETE" | "PUT" | "PATCH";
+type OptionsHeader = { [key: string]: string };
+type Options = {
+  method?: OptionsMethod;
+  headers?: OptionsHeader;
+};
+
+type FetchData<T> = T | null;
+type FetchStatus = number | null;
+type StartFetch<TRequest = any> = <T = TRequest>(data?: T) => Promise<void>;
+type UseFetchReturn<TResponse, TRequest = any> = {
+  fetchData: FetchData<TResponse>,
+  status: FetchStatus,
+  isLoading: boolean,
+  startFetch: StartFetch<TRequest>,
+}
+
+type UseFetchProps = {
+  url: string;
+  options?: Options;
+  autoFetch?: boolean;
+} & {};
+
+const useFetch = <TResponse = any, TRequest = any>(
   props: UseFetchProps
 ): UseFetchReturn<TResponse, TRequest> => {
   const { url, options, autoFetch = true } = props;
@@ -59,27 +82,4 @@ export const useFetch = <TResponse = any, TRequest = any>(
   return { fetchData, status, isLoading, startFetch };
 };
 
-
-type OptionsMethod = "GET" | "POST" | "DELETE" | "PUT" | "PATCH";
-type OptionsHeader = { [key: string]: string };
-type Options = {
-  method?: OptionsMethod;
-  headers?: OptionsHeader;
-};
-
-type UseFetchProps = {
-  url: string;
-  options?: Options;
-  autoFetch?: boolean;
-} & {};
-
-type FetchData<T> = T | null;
-type FetchStatus = number | null;
-type StartFetch<TRequest = any> = <T = TRequest>(data?: T) => Promise<void>;
-
-type UseFetchReturn<TResponse, TRequest = any> = {
-  fetchData: FetchData<TResponse>,
-  status: FetchStatus,
-  isLoading: boolean,
-  startFetch: StartFetch<TRequest>,
-}
+export { useFetch }
