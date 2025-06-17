@@ -2,14 +2,14 @@ import { Metadata } from 'next';
 
 import { META } from '@/shared/consts/metadata';
 
-export type MetaDataType = {
+type MetaDataType = {
   title: string;
   description?: string;
   ogImage?: string;
   asPath?: string;
 };
 
-export const getMetadata = (metaData?: MetaDataType) => {
+const getMetadata = (metaData?: MetaDataType) => {
   const { title, description, ogImage, asPath } = metaData || {};
 
   const TITLE = title ? `${title} | PROLOG` : META.title;
@@ -49,3 +49,5 @@ export const getMetadata = (metaData?: MetaDataType) => {
 
   return metadata;
 };
+
+export { getMetadata };
