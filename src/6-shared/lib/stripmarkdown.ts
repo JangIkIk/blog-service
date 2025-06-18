@@ -1,8 +1,8 @@
-export function stripHtml(html: string): string {
+const stripHtml = (html: string): string => {
   return html.replace(/<[^>]*>?/gm, '');
 }
 
-export function stripMarkdown(md: string): string {
+const stripMarkdown = (md: string): string  => {
   return (
     md
       // 헤딩
@@ -37,3 +37,6 @@ export function stripMarkdown(md: string): string {
       .trim()
   );
 }
+
+
+export { stripHtml, stripMarkdown };

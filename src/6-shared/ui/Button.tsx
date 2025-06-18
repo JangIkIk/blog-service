@@ -54,6 +54,11 @@ const buttonVariants = cva(["w-full font-bold cursor-pointer rounded-lg"], {
   },
 });
 
+type AsChildProps = {
+  asChild?: boolean;
+} & VariantProps<typeof buttonVariants> &
+  ButtonHTMLAttributes<HTMLButtonElement>;
+
 const Button = forwardRef<HTMLButtonElement, AsChildProps>((props, ref) => {
   const {
     className,
@@ -75,8 +80,3 @@ const Button = forwardRef<HTMLButtonElement, AsChildProps>((props, ref) => {
 });
 
 export { Button };
-
-type AsChildProps = {
-  asChild?: boolean;
-} & VariantProps<typeof buttonVariants> &
-  ButtonHTMLAttributes<HTMLButtonElement>;

@@ -4,7 +4,7 @@ type Props = Readonly<{
   children: React.ReactNode;
 }>;
 
-export default function BaseLayout(props: Props) {
+function BaseLayout(props: Props) {
   const { children } = props;
   return (
     <div>
@@ -15,3 +15,5 @@ export default function BaseLayout(props: Props) {
     </div>
   );
 }
+
+export default BaseLayout;

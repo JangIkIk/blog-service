@@ -1,6 +1,8 @@
 "use client";
 import Story from '@/src/2-pages/story/ui';
 
-export default function Page() {
+function Page() {
   return <Story/>
 }
+
+export default Page;

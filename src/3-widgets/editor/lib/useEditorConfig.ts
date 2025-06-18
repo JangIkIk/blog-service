@@ -1,17 +1,24 @@
 "use client";
+// package
 import { useEffect, useState } from "react";
+import { generateReactHelpers } from "@uploadthing/react";
 import { useCreateBlockNote } from "@blocknote/react";
 import { BlockNoteEditor, type PartialBlock } from "@blocknote/core";
 import { ko } from "@blocknote/core/locales";
-import { uploadFiles } from "@/src/3-widgets/editor/lib/uploadthing";
-
+// layer
+import type { OurFileRouter } from "@/app/api/uploadthing/core";
+// type
 type EditorConfigProps = {
   initContent?: PartialBlock[];
 };
-
-export const useEditorConfig = (props?: EditorConfigProps) => {
+/**
+ * @Desc
+ * blocknote 설정
+*/
+const useEditorConfig = (props?: EditorConfigProps) => {
   const { initContent } = props || {};
   const [markdown, setMarkdown] = useState<string>("");
+  const { uploadFiles } = generateReactHelpers<OurFileRouter>();
 
   const editor: BlockNoteEditor = useCreateBlockNote({
     animations: true,
@@ -20,7 +27,7 @@ export const useEditorConfig = (props?: EditorConfigProps) => {
     dictionary: ko,
     initialContent: initContent || undefined,
     uploadFile: async (file: File) => {
-      const [res] = await uploadFiles("imageUploader", { files: [file] });
+      const [res] = await uploadFiles("editorUploadr", { files: [file] });
       return res.ufsUrl;
     },
   });
@@ -30,9 +37,11 @@ export const useEditorConfig = (props?: EditorConfigProps) => {
     setMarkdown(markdown);
   };
 
-  useEffect(()=>{
-    if(initContent) changeMarkdown();
-  },[])
+  useEffect(() => {
+    if (initContent) changeMarkdown();
+  }, []);
 
   return { editor, markdown, changeMarkdown };
 };
+
+export { useEditorConfig };
