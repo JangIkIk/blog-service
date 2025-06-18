@@ -1,6 +1,6 @@
 "use client";
 // package
-import { type ChangeEvent } from "react";
+import { useState, type ChangeEvent } from "react";
 import { generateReactHelpers } from "@uploadthing/react";
 // slice
 import { useUploadedUrl } from "../hooks/use-uploaded-url";
@@ -9,6 +9,7 @@ import type { OurFileRouter } from "@/app/api/uploadthing/core";
 // type
 type UseImageUploadReturn = {
   submitImageUpload: (event: ChangeEvent<HTMLInputElement>) => void;
+  isLoading: boolean;
 };
 /**
  * @Desc
@@ -16,12 +17,14 @@ type UseImageUploadReturn = {
  */
 const useImageUpload = (): UseImageUploadReturn => {
   const saveUrl = useUploadedUrl((state) => state.actions.saveUrl);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const { useUploadThing } = generateReactHelpers<OurFileRouter>();
 
   const { startUpload, routeConfig } = useUploadThing("editorUploadr", {
     onClientUploadComplete: (res) => {
       const url = res[0].ufsUrl as string;
       saveUrl(url);
+      setIsLoading(false);
     },
     onUploadError: (error) => {
       // need a refactor:  모달 or 알림창으로 변경 (routeConfig 활용)
@@ -32,6 +35,7 @@ const useImageUpload = (): UseImageUploadReturn => {
     },
     onUploadBegin: async (fileName) => {
       // need a refactor: 업로드전 세션 확인 필요?
+      setIsLoading(true);
     },
   });
 
@@ -41,7 +45,7 @@ const useImageUpload = (): UseImageUploadReturn => {
     startUpload(selectedFile);
   };
 
-  return { submitImageUpload };
+  return { submitImageUpload, isLoading };
 };
 
 export { useImageUpload };
