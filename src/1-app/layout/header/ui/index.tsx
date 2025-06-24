@@ -6,10 +6,11 @@ import {
   MoonIcon
 } from "@radix-ui/react-icons";
 import { cn } from "@shared/lib/cn";
+import {useTheme} from '@shared/hooks/use-theme';
 
 export default function Header() {
 
-  const toggleTheme = () => document.documentElement.classList.toggle("dark");
+  const changeTheme = useTheme( state => state.actions.changeTheme );
 
   return (
     <div className="w-full flex justify-between items-center gap-8 px-4 py-2 border-b theme-border-2">
@@ -49,7 +50,7 @@ export default function Header() {
           />
         </div>
         {/* 로그인 버튼 */}
-        <button  onClick={toggleTheme}>
+        <button  onClick={changeTheme}>
           <MoonIcon className={cn("cursor-pointer size-5 hover:text-brand-main")}/>
         </button>
         <TextAlignJustifyIcon className={cn("cursor-pointer size-7 hover:text-brand-main", "md:hidden")}/>

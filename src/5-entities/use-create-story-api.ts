@@ -1,5 +1,5 @@
 import type { StoryForm } from './types';
-import { useFetch } from '@shared/hooks/useFetch';
+import { useFetch } from '@/src/6-shared/hooks/use-fetch';
 
 type UseCreateStoryReturn = {
   isLoading: boolean;
