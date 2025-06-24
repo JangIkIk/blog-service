@@ -1,4 +1,4 @@
-import Header from "../layout/header/ui";
+import Header from "./header/ui";
 
 type Props = Readonly<{
   children: React.ReactNode;
