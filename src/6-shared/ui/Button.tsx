@@ -79,4 +79,4 @@ const Button = forwardRef<HTMLButtonElement, AsChildProps>((props, ref) => {
   );
 });
 
-export { Button };
+export default Button;
