@@ -1,29 +1,31 @@
 "use client";
+
 // package
 import { useState, type ChangeEvent } from "react";
 import { generateReactHelpers } from "@uploadthing/react";
-// slice
-import { useUploadedUrl } from "../hooks/use-uploaded-url";
 // layer
 import type { OurFileRouter } from "@/app/api/uploadthing/core";
+
 // type
-type UseImageUploadReturn = {
+type UseThumbnailReturn = {
   submitImageUpload: (event: ChangeEvent<HTMLInputElement>) => void;
+  uploadUrl: string | null;
   isLoading: boolean;
 };
+
 /**
  * @Desc
  * uploadthing 이미지 API
  */
-const useImageUpload = (): UseImageUploadReturn => {
-  const saveUrl = useUploadedUrl((state) => state.actions.saveUrl);
+const useThumbnail = (): UseThumbnailReturn => {
+  const [uploadUrl, setUploadUrl] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { useUploadThing } = generateReactHelpers<OurFileRouter>();
 
   const { startUpload, routeConfig } = useUploadThing("editorUploadr", {
     onClientUploadComplete: (res) => {
       const url = res[0].ufsUrl as string;
-      saveUrl(url);
+      setUploadUrl(url);
       setIsLoading(false);
     },
     onUploadError: (error) => {
@@ -45,7 +47,7 @@ const useImageUpload = (): UseImageUploadReturn => {
     startUpload(selectedFile);
   };
 
-  return { submitImageUpload, isLoading };
+  return { submitImageUpload, uploadUrl, isLoading };
 };
 
-export { useImageUpload };
+export { useThumbnail };

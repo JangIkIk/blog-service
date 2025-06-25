@@ -2,6 +2,7 @@ import type { NextConfig } from 'next';
 import path from 'node:path';
 
 const nextConfig: NextConfig = {
+  reactStrictMode: false,
   images: {
     domains: ['encrypted-tbn0.gstatic.com', 'cdn.pixabay.com'],
     remotePatterns: [

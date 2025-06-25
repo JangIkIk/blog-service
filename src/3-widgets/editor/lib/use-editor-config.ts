@@ -32,16 +32,16 @@ const useEditorConfig = (props?: EditorConfigProps) => {
     },
   });
 
-  const changeMarkdown = async () => {
-    const markdown = await editor.blocksToMarkdownLossy(editor.document);
-    setMarkdown(markdown);
-  };
+  // const changeMarkdown = async () => {
+  //   const markdown = await editor.blocksToMarkdownLossy(editor.document);
+  //   setMarkdown(markdown);
+  // };
 
-  useEffect(() => {
-    if (initContent) changeMarkdown();
-  }, []);
+  // useEffect(() => {
+  //   if (initContent) changeMarkdown();
+  // }, []);
 
-  return { editor, markdown, changeMarkdown };
+  return { editor };
 };
 
 export { useEditorConfig };

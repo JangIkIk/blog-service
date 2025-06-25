@@ -1,23 +1,34 @@
-'use client'
-import dynamic from "next/dynamic";
+"use client";
+// package
 import { useMemo } from "react";
-import { type PartialBlock } from "@blocknote/core";
+import dynamic from "next/dynamic";
+// slice
+import { useCreateStory } from '../api/use-create-story';
+// layer
+import Button from "@shared/ui/Button";
+
 
 function Story() {
   const Editor = useMemo(
     () => dynamic(() => import("@/src/3-widgets/editor/index"), { ssr: false }),
     []
   );
+  const { isLoading, submitStory } = useCreateStory();
 
   return (
     <div className="px-10">
-      <Editor/>
+      <Editor
+        children={(storyData) => (
+          <Button intent={"soft"} onClick={() => submitStory(storyData)}>
+            발행하기
+          </Button>
+        )}
+      ></Editor>
     </div>
   );
 }
 
-export default Story
-
+export default Story;
 
 // const initContent: PartialBlock[] = [
 //     {
