@@ -1,6 +1,6 @@
-import { AlarmRepository } from '@/back/alarm/domain/AlarmRepository';
+import { AlarmRepository } from '@/back/temp/alarm/domain/AlarmRepository';
 import prisma from '@/src/6-shared/lib/prisma';
-import { type findAllReturn } from '@/back/alarm/domain/AlarmRepository'
+import { type findAllReturn } from '@/back/temp/alarm/domain/AlarmRepository'
 
 export class PrAlarmRepository implements AlarmRepository {
   async findAll(receiverId: string){

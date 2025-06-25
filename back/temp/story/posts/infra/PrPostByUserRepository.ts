@@ -1,4 +1,4 @@
-import { BlogPostWhereInput } from '@/back/posts/domain/PostListAllRepository';
+import { BlogPostWhereInput } from '@/back/temp/posts/domain/PostListAllRepository';
 import {
   BlogPostByUserWhereInput,
   BlogPostOrderBy,

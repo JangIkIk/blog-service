@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import { GetAlarmListResponse } from '../dto/GetAlarmListDto';
-import { AlarmRepository } from '@/back/alarm/domain/AlarmRepository';
+import { AlarmRepository } from '@/back/temp/alarm/domain/AlarmRepository';
 import { stripMarkdown } from '@/src/6-shared/lib/stripmarkdown'
 
 export class GetAlarmListUsecase {

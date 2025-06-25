@@ -1,4 +1,4 @@
-import { AlarmRepository } from '@/back/alarm/domain/AlarmRepository';
+import { AlarmRepository } from '@/back/temp/alarm/domain/AlarmRepository';
 
 export class DeleteAlarmUsecase {
   constructor(private readonly alarmRepository: AlarmRepository) {}

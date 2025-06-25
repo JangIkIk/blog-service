@@ -1,8 +1,8 @@
 // import { SubscribeRepository } from '@/back/subscribe/domain/SubscribeRepository';
-import { SubscribePostRepository } from '@/back/subscribe/domain/SubscribePostRepository';
+import { SubscribePostRepository } from '@/back/temp/subscribe/domain/SubscribePostRepository';
 import { PostsRepository } from '../../domain/PostsRepository';
 import { CreatePostDto } from '../dto/CreatePostDto';
-import { NotificationRepository } from '@/back/notification/domain/NotificationRepository';
+import { NotificationRepository } from '@/back/temp/notification/domain/NotificationRepository';
 
 export class CreatePostUsecase {
   constructor(

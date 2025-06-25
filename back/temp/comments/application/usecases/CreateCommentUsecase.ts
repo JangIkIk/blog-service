@@ -1,7 +1,7 @@
-import { NotificationRepository } from '@/back/notification/domain/NotificationRepository';
+import { NotificationRepository } from '@/back/temp/notification/domain/NotificationRepository';
 import { CommentRepository } from '../../domain/CommentRepository';
 import { CreateCommentDto } from '../dto/CreateCommentDto';
-import { PostsRepository } from '@/back/posts/domain/PostsRepository';
+import { PostsRepository } from '@/back/temp/posts/domain/PostsRepository';
 
 export class CreateCommentUsecase {
   constructor(

@@ -1,5 +1,5 @@
 import { PrSettingRepository } from './PrSettingRepository';
-import { SettingUseCase } from '@/back/setting/application/usecase/SettingUsecase';
+import { SettingUseCase } from '@/back/temp/setting/application/usecase/SettingUsecase';
 
 let settingUseCase: SettingUseCase | null = null;
 
