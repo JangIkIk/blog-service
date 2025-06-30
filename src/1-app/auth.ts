@@ -54,6 +54,10 @@ const { handlers, signIn, signOut, auth } = NextAuth({
       // console.log("trigger:",trigger);
       // // trigger가 "update" 일때 클라이언트에서 전달된 세션 데이터
       // console.log("session:",session);
+      // if(user){
+      //   token
+      // }
+
       return token;
     },
     // 클라이언트에게 노출된 세션 객체
@@ -69,6 +73,7 @@ const { handlers, signIn, signOut, auth } = NextAuth({
       // console.log("newSession:",newSession);
       // // 세션 업데이트로 인해 호출되었음을 알림
       // console.log("trigger:",trigger);
+      session.user.id = token.sub as string;
       return session;
     },
   },
