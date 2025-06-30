@@ -176,7 +176,8 @@ exports.Prisma.PostScalarFieldEnum = {
   updatedAt: 'updatedAt',
   deletedAt: 'deletedAt',
   scope: 'scope',
-  userId: 'userId'
+  userId: 'userId',
+  categoryId: 'categoryId'
 };
 
 exports.Prisma.TagScalarFieldEnum = {
@@ -190,7 +191,7 @@ exports.Prisma.PostTagScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
-exports.Prisma.PostCategorieScalarFieldEnum = {
+exports.Prisma.PostCategoryScalarFieldEnum = {
   id: 'id',
   name: 'name',
   createdAt: 'createdAt',
@@ -260,7 +261,7 @@ exports.Prisma.ModelName = {
   Post: 'Post',
   Tag: 'Tag',
   PostTag: 'PostTag',
-  PostCategorie: 'PostCategorie',
+  PostCategory: 'PostCategory',
   PostComment: 'PostComment',
   PostTemp: 'PostTemp',
   PostBookmark: 'PostBookmark',
