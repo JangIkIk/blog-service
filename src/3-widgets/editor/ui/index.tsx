@@ -15,7 +15,7 @@ import ThumbnailUploadButton from "./ThumbnailUpload";
 // layer
 import TitleTextArea from "@shared/ui/TextArea";
 import { type StoryData } from '@entities/story';
-import Button from "@/src/6-shared/ui/Button";
+import Button from "@shared/ui/Button";
 import { useTheme } from "@shared/hooks/use-theme";
 
 // type
@@ -41,7 +41,7 @@ function Editor(props: EditorProps): EditorReturn {
   // 썸네일
   const { submitImageUpload, uploadUrl, isLoading } = useThumbnail();
   // 게시글 데이터
-  const [storyData, setStoryData] = useState<StoryData>({
+  const [storyData, setStoryData] = useState<StoryData>({    
     title: "",
     content: [],
     aiContent: null,
