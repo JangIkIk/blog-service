@@ -55,8 +55,6 @@ function Editor(props: EditorProps): EditorReturn {
     }
   }, [uploadUrl]);
 
-  console.log("storyData:",storyData.content)
-
   return (
     <div className="my-4">
       {/* 썸네일 */}

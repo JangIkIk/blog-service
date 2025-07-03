@@ -15,9 +15,9 @@ type UseCreateStoryReturn = {
  * @Desc
  * 게시글 작성 API
  */
-const useCreateStoryApi = (): UseCreateStoryReturn => {
+const useCreatePostApi = (): UseCreateStoryReturn => {
   const { status, isLoading, startFetch } = useFetch<null, RequestPost>({
-      url: '/api/member/story',
+      url: '/api/member/post',
       options: {method: "POST"},
       autoFetch: false
     });
@@ -25,4 +25,4 @@ const useCreateStoryApi = (): UseCreateStoryReturn => {
   return { status, isLoading, startFetch };
 };
 
-export { useCreateStoryApi };
+export { useCreatePostApi };
