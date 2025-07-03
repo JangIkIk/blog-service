@@ -14,7 +14,7 @@ import { useThumbnail } from "../api/use-thumbnail";
 import ThumbnailUploadButton from "./ThumbnailUpload";
 // layer
 import TitleTextArea from "@shared/ui/TextArea";
-import { type StoryData } from '@entities/story';
+import { type InputPost } from '@entities/story';
 import Button from "@shared/ui/Button";
 import { useTheme } from "@shared/hooks/use-theme";
 
@@ -23,7 +23,7 @@ type EditorProps = {
   initContent?: PartialBlock[];
   editable?: boolean;
   markdownData?: (markdownData: string) => void;
-  children?: (storyData: StoryData) => ReactElement;
+  children?: (storyData: InputPost) => ReactElement;
 };
 type EditorReturn = ReactElement;
 
@@ -41,7 +41,7 @@ function Editor(props: EditorProps): EditorReturn {
   // 썸네일
   const { submitImageUpload, uploadUrl, isLoading } = useThumbnail();
   // 게시글 데이터
-  const [storyData, setStoryData] = useState<StoryData>({    
+  const [storyData, setStoryData] = useState<InputPost>({    
     title: "",
     content: [],
     aiContent: null,
@@ -54,6 +54,8 @@ function Editor(props: EditorProps): EditorReturn {
       setStoryData((prev) => ({ ...prev, thumbnailImage: uploadUrl }));
     }
   }, [uploadUrl]);
+
+  console.log("storyData:",storyData.content)
 
   return (
     <div className="my-4">

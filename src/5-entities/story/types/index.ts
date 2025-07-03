@@ -1,10 +1,12 @@
 import { z } from 'zod';
-import { storyScopeEnum, storySchema } from '../schemas';
+import { z_PostScope, z_InputPost, z_RequestPost } from '../schemas';
 
-type StoryScope = z.infer<typeof storyScopeEnum>;
-type StoryData = z.infer<typeof storySchema>;
+type PostScope = z.infer<typeof z_PostScope>;
+type InputPost = z.infer<typeof z_InputPost>;
+type RequestPost = z.infer<typeof z_RequestPost>;
 
 export type {
-    StoryScope,
-    StoryData,
+    PostScope,
+    InputPost,
+    RequestPost
 }

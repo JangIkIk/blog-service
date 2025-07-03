@@ -1,12 +1,12 @@
 "use client";
 // layer
-import { useCreateStoryApi, type StoryData, storySchema } from "@/src/5-entities/story";
+import { useCreateStoryApi, type RequestPost, z_InputPost } from "@/src/5-entities/story";
 
 const useCreateStory = () => {
     const { status, isLoading, startFetch } = useCreateStoryApi();
 
   const submitStory = (data: unknown) => {
-    const result = storySchema.safeParse(data);
+    const result = z_InputPost.safeParse(data);
 
     if(!result.success){
       const formatted = result.error.format();
@@ -26,7 +26,10 @@ const useCreateStory = () => {
     }
 
 
-    const validData:StoryData = result.data;
+    const validData:RequestPost = {
+      ...result.data,
+      content: JSON.stringify(result.data.content),
+    };
     startFetch(validData);
   };
 

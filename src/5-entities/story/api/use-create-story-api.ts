@@ -1,5 +1,6 @@
 // slice
-import { type StoryData } from '../types';
+import { useState } from 'react';
+import { type RequestPost } from '../types';
 // layer
 import { useFetch } from '@/src/6-shared/hooks/use-fetch';
 
@@ -7,7 +8,7 @@ import { useFetch } from '@/src/6-shared/hooks/use-fetch';
 type UseCreateStoryReturn = {
   isLoading: boolean;
   status: number | null;
-  startFetch: ( data: StoryData ) => void;
+  startFetch: ( data: RequestPost ) => void;
 };
 
 /**
@@ -15,7 +16,7 @@ type UseCreateStoryReturn = {
  * 게시글 작성 API
  */
 const useCreateStoryApi = (): UseCreateStoryReturn => {
-  const { status, isLoading, startFetch } = useFetch<null, StoryData>({
+  const { status, isLoading, startFetch } = useFetch<null, RequestPost>({
       url: '/api/member/story',
       options: {method: "POST"},
       autoFetch: false
