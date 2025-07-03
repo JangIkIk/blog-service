@@ -17,7 +17,11 @@ type CreatePostInput = Pick<
 type GetAllPostReturn = Pick<
   Post,
   "id" | "title" | "content" | "thumbnailImage" | "createdAt"
-> & Pick<User, "name" | "email" | "image">;
+> & {
+  userName: User["name"];
+  userEmail: User["email"];
+  userImage: User["image"];
+};
 
 interface PostRepository {
   createPost(post: CreatePostInput): Promise<Post>;
