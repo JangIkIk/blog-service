@@ -3,7 +3,7 @@
 import { useMemo } from "react";
 import dynamic from "next/dynamic";
 // slice
-import { useCreateStory } from '../api/use-create-story';
+import { useCreatePost } from '../api/use-create-post';
 // layer
 import Button from "@shared/ui/Button";
 
@@ -13,7 +13,7 @@ function Story() {
     () => dynamic(() => import("@/src/3-widgets/editor/index"), { ssr: false }),
     []
   );
-  const { isLoading, submitStory } = useCreateStory();
+  const { isLoading, submitStory } = useCreatePost();
 
   return (
     <div className="px-10">

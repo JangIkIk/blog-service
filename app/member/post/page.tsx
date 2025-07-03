@@ -1,5 +1,5 @@
 "use client";
-import Story from '@/src/2-pages/story/ui';
+import Story from '@/src/2-pages/post/ui';
 
 function Page() {
   return <Story/>

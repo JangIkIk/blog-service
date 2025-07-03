@@ -2,7 +2,7 @@
 // layer
 import { useCreateStoryApi, type RequestPost, z_InputPost } from "@/src/5-entities/story";
 
-const useCreateStory = () => {
+const useCreatePost = () => {
     const { status, isLoading, startFetch } = useCreateStoryApi();
 
   const submitStory = (data: unknown) => {
@@ -53,4 +53,4 @@ const useCreateStory = () => {
   return { isLoading, submitStory };
 };
 
-export { useCreateStory };
+export { useCreatePost };
