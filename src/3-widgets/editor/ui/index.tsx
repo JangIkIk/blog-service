@@ -14,7 +14,7 @@ import { useThumbnail } from "../api/use-thumbnail";
 import ThumbnailUploadButton from "./ThumbnailUpload";
 // layer
 import TitleTextArea from "@shared/ui/TextArea";
-import { type InputPost } from '@entities/story';
+import { type InputPost } from '@/src/5-entities/post';
 import Button from "@shared/ui/Button";
 import { useTheme } from "@shared/hooks/use-theme";
 
