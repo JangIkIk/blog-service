@@ -1,3 +1,4 @@
+"use client"
 // package
 import { useCallback, useEffect, useState } from "react";
 
@@ -42,8 +43,7 @@ const useFetch = <TResponse = any, TRequest = any>(
   const [status, setStatus] = useState<FetchStatus>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const startFetch: StartFetch<TRequest> = useCallback(
-    async <T>(data?: T) => {
+  const startFetch: StartFetch<TRequest> = async <T>(data?: T) => {
       setIsLoading(true);
 
       const fetchBaseConfig = {
@@ -73,15 +73,13 @@ const useFetch = <TResponse = any, TRequest = any>(
       setFetchData(jsonData.data);
       setStatus(jsonData.status);
       setIsLoading(false);
-    },
-    [url, options]
-  );
+    };
 
   useEffect(() => {
-    if (autoFetch) {
+    if (autoFetch && !isLoading) {
       startFetch();
     }
-  }, [startFetch]);
+  }, []);
 
   return { fetchData, status, isLoading, startFetch };
 };
