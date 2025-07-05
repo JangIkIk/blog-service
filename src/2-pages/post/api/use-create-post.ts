@@ -1,6 +1,6 @@
 "use client";
 // layer
-import { useCreatePostApi, type RequestPost, z_InputPost } from "@/src/5-entities/story";
+import { useCreatePostApi, type RequestPost, z_InputPost } from "@/src/5-entities/post";
 
 const useCreatePost = () => {
     const { status, isLoading, startFetch } = useCreatePostApi();

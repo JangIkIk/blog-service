@@ -9,12 +9,8 @@ const z_InputPost = z.object({
     thumbnailImage: z.string().nullable(),
     scope: z_PostScope,
 });
-const z_RequestPost = z.object({
-    title: z.string().trim().min(1, "제목은 필수입니다"),
+const z_RequestPost = z_InputPost.extend({
     content: z.string().min(1, "내용은 필수입니다"),
-    aiContent: z.string().nullable(),
-    thumbnailImage: z.string().nullable(),
-    scope: z_PostScope,
 });
 
 export {

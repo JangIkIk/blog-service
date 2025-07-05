@@ -24,6 +24,7 @@ class PostRepositoryImpl implements PostRepository {
   }
 
   async getAllPost(): Promise<GetAllPostReturn[]> {
+
     const queryResult: {
       id: Post["id"];
       title: Post["title"];
@@ -34,11 +35,11 @@ class PostRepositoryImpl implements PostRepository {
       user_email: User["email"];
       user_image: User["image"];
     }[] = await prisma.$queryRaw`
-    SELECT p.id, p.title, p.content, p.content, p.created_at, p.thumbnail_image, u.email AS user_email, u.name AS user_name, u.image AS user_image
+    SELECT p.id, p.title, p.content, p.created_at, p.thumbnail_image, u.email AS user_email, u.name AS user_name, u.image AS user_image
     FROM posts AS p 
     INNER JOIN users AS u 
     ON p.user_id = u.id
-    WHERE p.scope = 'PUBLIC'
+    WHERE p.scope IN ("PUBLIC")
     ORDER BY p.created_at DESC`;
 
     const postsMapper: GetAllPostReturn[] = queryResult.map((item) => ({

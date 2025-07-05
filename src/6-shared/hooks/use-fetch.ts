@@ -23,7 +23,7 @@ type UseFetchReturn<TResponse, TRequest = any> = {
   status: FetchStatus,
   isLoading: boolean,
   startFetch: StartFetch<TRequest>,
-}
+} & {}
 // fetcg props
 type UseFetchProps = {
   url: string;

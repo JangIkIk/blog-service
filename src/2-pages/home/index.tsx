@@ -1,6 +1,7 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { cn } from "@shared/lib/cn";
+import { useFetch } from '@shared/hooks/use-fetch';
 
 function Home() {
   // 임시
@@ -10,6 +11,18 @@ function Home() {
   // 임시
   const [selectPostsView, setSelectPostsView] = useState("카드");
   const onClickView = (text: string) => setSelectPostsView(text);
+
+  const { fetchData, status, isLoading, startFetch } = useFetch({
+    url: "/api/post",
+     options: {method: "GET"},
+    autoFetch: true
+  })
+
+  // console.log("fetchData:",fetchData);
+  // console.log("status:",status);
+  // console.log("isLoading:",isLoading);
+
+
 
   return (
     <div className="theme-text-1">
